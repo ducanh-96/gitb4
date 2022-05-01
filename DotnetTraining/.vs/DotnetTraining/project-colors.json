@@ -5,6 +5,11 @@
       "ProjectGuid": "68856506-7fd4-43f7-bab8-4c24ef4aeee6",
       "DisplayName": "DotnetTraining",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 1
