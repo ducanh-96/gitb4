@@ -10,7 +10,7 @@ namespace DotnetTraining.Controllers
         private readonly dbEcommerceRookiesContext _context;
         public ProductController(dbEcommerceRookiesContext context)
         {
-            context= context;
+            context = _context;
         }
         
         public IActionResult Index()

@@ -140,29 +140,15 @@ namespace DotnetTraining.Models
             {
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
-                entity.Property(e => e.Alias).HasMaxLength(255);
-
                 entity.Property(e => e.CatId).HasColumnName("CatID");
 
                 entity.Property(e => e.DateCreated).HasColumnType("datetime");
 
                 entity.Property(e => e.DateModified).HasColumnType("datetime");
 
-                entity.Property(e => e.MetaDesc).HasMaxLength(255);
-
-                entity.Property(e => e.MetaKey).HasMaxLength(255);
-
                 entity.Property(e => e.ProductName)
                     .IsRequired()
                     .HasMaxLength(255);
-
-                entity.Property(e => e.ShortDesc).HasMaxLength(255);
-
-                entity.Property(e => e.Thumb).HasMaxLength(255);
-
-                entity.Property(e => e.Title).HasMaxLength(255);
-
-                entity.Property(e => e.Video).HasMaxLength(255);
 
                 entity.HasOne(d => d.Cat)
                     .WithMany(p => p.Products)

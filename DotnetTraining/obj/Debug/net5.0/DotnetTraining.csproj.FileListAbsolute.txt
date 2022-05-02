@@ -449,7 +449,6 @@ C:\MrADN\Learning\Nashtech\BaoCaoThucTap\Project\gitb4\DotnetTraining\obj\Debug\
 C:\MrADN\Learning\Nashtech\BaoCaoThucTap\Project\gitb4\DotnetTraining\obj\Debug\net5.0\Razor\Views\Shared\_HeaderPartialView.cshtml.g.cs
 C:\MrADN\Learning\Nashtech\BaoCaoThucTap\Project\gitb4\DotnetTraining\obj\Debug\net5.0\Razor\Views\Home\Contact.cshtml.g.cs
 C:\MrADN\Learning\Nashtech\BaoCaoThucTap\Project\gitb4\DotnetTraining\obj\Debug\net5.0\Razor\Views\Home\About.cshtml.g.cs
-C:\MrADN\Learning\Nashtech\BaoCaoThucTap\Project\gitb4\DotnetTraining\obj\Debug\net5.0\Razor\Views\Blog\Index.cshtml.g.cs
 C:\MrADN\Learning\Nashtech\BaoCaoThucTap\Project\gitb4\DotnetTraining\obj\Debug\net5.0\Razor\Views\Product\Index.cshtml.g.cs
 C:\MrADN\Learning\Nashtech\BaoCaoThucTap\Project\gitb4\DotnetTraining\obj\Debug\net5.0\Razor\Views\Product\Details.cshtml.g.cs
 C:\MrADN\Learning\Nashtech\BaoCaoThucTap\Project\gitb4\DotnetTraining\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminAccounts\Create.cshtml.g.cs
@@ -467,3 +466,4 @@ C:\MrADN\Learning\Nashtech\BaoCaoThucTap\Project\gitb4\DotnetTraining\obj\Debug\
 C:\MrADN\Learning\Nashtech\BaoCaoThucTap\Project\gitb4\DotnetTraining\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminProducts\Details.cshtml.g.cs
 C:\MrADN\Learning\Nashtech\BaoCaoThucTap\Project\gitb4\DotnetTraining\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminProducts\Edit.cshtml.g.cs
 C:\MrADN\Learning\Nashtech\BaoCaoThucTap\Project\gitb4\DotnetTraining\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminProducts\Index.cshtml.g.cs
+C:\MrADN\Learning\Nashtech\BaoCaoThucTap\Project\gitb4\DotnetTraining\obj\Debug\net5.0\DotnetTraining.csproj.AssemblyReference.cache
