@@ -9,7 +9,6 @@ namespace DotnetTraining.Models
     {
         public Product()
         {
-            AttributesPrices = new HashSet<AttributesPrice>();
             OrderDetails = new HashSet<OrderDetail>();
         }
 
@@ -35,7 +34,6 @@ namespace DotnetTraining.Models
         public int? UnitsInStock { get; set; }
 
         public virtual Category Cat { get; set; }
-        public virtual ICollection<AttributesPrice> AttributesPrices { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

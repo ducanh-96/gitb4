@@ -42,7 +42,7 @@ namespace DotnetTraining
             services.AddSingleton<IFileProvider>(new PhysicalFileProvider(
                                                Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
             services.AddMvc();
-            services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
+            services.AddNotyf(config => { config.DurationInSeconds = 5; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

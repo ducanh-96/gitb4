@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DotnetTraining.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace DotnetTraining.Areas.Admin.Controllers
 {
@@ -13,10 +14,12 @@ namespace DotnetTraining.Areas.Admin.Controllers
     public class AdminRolesController : Controller
     {
         private readonly dbEcommerceRookiesContext _context;
+        public INotyfService _notyfService { get; }
 
-        public AdminRolesController(dbEcommerceRookiesContext context)
+        public AdminRolesController(dbEcommerceRookiesContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminRoles
@@ -60,6 +63,7 @@ namespace DotnetTraining.Areas.Admin.Controllers
             {
                 _context.Add(role);
                 await _context.SaveChangesAsync();
+                _notyfService.Success("Tạo mới thành công");
                 return RedirectToAction(nameof(Index));
             }
             return View(role);
@@ -90,6 +94,7 @@ namespace DotnetTraining.Areas.Admin.Controllers
         {
             if (id != role.RoleId)
             {
+                _notyfService.Warning("Có lỗi xảy ra");
                 return NotFound();
             }
 
@@ -99,11 +104,13 @@ namespace DotnetTraining.Areas.Admin.Controllers
                 {
                     _context.Update(role);
                     await _context.SaveChangesAsync();
+                    _notyfService.Success("Cập nhật thành công");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!RoleExists(role.RoleId))
                     {
+                        _notyfService.Warning("Có lỗi xảy ra");
                         return NotFound();
                     }
                     else
@@ -121,6 +128,7 @@ namespace DotnetTraining.Areas.Admin.Controllers
         {
             if (id == null)
             {
+                _notyfService.Warning("Có lỗi xảy ra");
                 return NotFound();
             }
 
@@ -128,6 +136,7 @@ namespace DotnetTraining.Areas.Admin.Controllers
                 .FirstOrDefaultAsync(m => m.RoleId == id);
             if (role == null)
             {
+                _notyfService.Warning("Có lỗi xảy ra");
                 return NotFound();
             }
 
@@ -142,6 +151,7 @@ namespace DotnetTraining.Areas.Admin.Controllers
             var role = await _context.Roles.FindAsync(id);
             _context.Roles.Remove(role);
             await _context.SaveChangesAsync();
+            _notyfService.Success("Xóa quyền truy cập thành công");
             return RedirectToAction(nameof(Index));
         }
 
