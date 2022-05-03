@@ -30,7 +30,7 @@ namespace DotnetTraining.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=MRADN; Database=dbEcommerceRookies; Integrated Security=true;");
             }
         }
@@ -68,6 +68,8 @@ namespace DotnetTraining.Models
                 entity.HasKey(e => e.CatId);
 
                 entity.Property(e => e.CatId).HasColumnName("CatID");
+
+                entity.Property(e => e.Alias).HasMaxLength(255);
 
                 entity.Property(e => e.CatName).HasMaxLength(250);
             });
@@ -140,6 +142,8 @@ namespace DotnetTraining.Models
             {
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
+                entity.Property(e => e.Alias).HasMaxLength(255);
+
                 entity.Property(e => e.CatId).HasColumnName("CatID");
 
                 entity.Property(e => e.DateCreated).HasColumnType("datetime");
@@ -149,6 +153,8 @@ namespace DotnetTraining.Models
                 entity.Property(e => e.ProductName)
                     .IsRequired()
                     .HasMaxLength(255);
+
+                entity.Property(e => e.Thumb).HasMaxLength(255);
 
                 entity.HasOne(d => d.Cat)
                     .WithMany(p => p.Products)

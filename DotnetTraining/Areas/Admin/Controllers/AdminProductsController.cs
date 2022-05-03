@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DotnetTraining.Models;
 using PagedList.Core;
+using AspNetCoreHero.ToastNotification.Abstractions;
+using DotnetTraining.Helpper;
+using System.IO;
 
 namespace DotnetTraining.Areas.Admin.Controllers
 {
@@ -14,17 +17,19 @@ namespace DotnetTraining.Areas.Admin.Controllers
     public class AdminProductsController : Controller
     {
         private readonly dbEcommerceRookiesContext _context;
+        public INotyfService _notyfService { get; }
 
-        public AdminProductsController(dbEcommerceRookiesContext context)
+        public AdminProductsController(dbEcommerceRookiesContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminProducts
         public IActionResult Index(int page = 1, int CatID = 0)
         {
             var pageNumber = page;
-            var pageSize = 20;
+            var pageSize = 5;
 
             List<Product> lsProducts = new List<Product>();
             if (CatID != 0)
@@ -44,8 +49,10 @@ namespace DotnetTraining.Areas.Admin.Controllers
             }
 
             PagedList<Product> models = new PagedList<Product>(lsProducts.AsQueryable(), pageNumber, pageSize);
+
             ViewBag.CurrentCateID = CatID;
             ViewBag.CurrentPage = pageNumber;
+
             ViewData["DanhMuc"] = new SelectList(_context.Categories, "CatId", "CatName", CatID);
 
             return View(models);
@@ -77,7 +84,7 @@ namespace DotnetTraining.Areas.Admin.Controllers
                 url = $"/Admin/AdminProducts";
             }
             return Json( new { status = "success", redirectUrl = url });
-            }
+        }
         // GET: Admin/AdminProducts/Create
         public IActionResult Create()
         {
@@ -90,12 +97,25 @@ namespace DotnetTraining.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,ProductName,ShortDesc,Description,CatId,Price,Discount,Thumb,Video,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsInStock")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductId,ProductName,ShortDesc,Description,CatId,Price,Discount,Thumb,Video,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsInStock")] Product product, Microsoft.AspNetCore.Http.IFormFile fThumb)
         {
             if (ModelState.IsValid)
             {
+                //Xử lý Thumb
+                product.ProductName = Utilities.ToTitleCase(product.ProductName);
+                if (fThumb != null)
+                {
+                    //string extension = Path.GetExtension(product.FileName);
+                    //string image = Utilities.SEOUrl(product.ProductName) + extension;
+                    //product.Thumb = await Utilities.UploadFile(fThumb, @"products", image.ToLower());
+                }
+                if (string.IsNullOrEmpty(product.Thumb)) product.Thumb = "default.jpg";
+                product.DateModified = DateTime.Now;
+                product.DateCreated = DateTime.Now;
+
                 _context.Add(product);
                 await _context.SaveChangesAsync();
+                _notyfService.Success("Tạo mới thành công");
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DanhMuc"] = new SelectList(_context.Categories, "CatId", "CatName", product.CatId);
@@ -124,10 +144,11 @@ namespace DotnetTraining.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ShortDesc,Description,CatId,Price,Discount,Thumb,Video,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsInStock")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ShortDesc,Description,CatId,Price,Discount,Thumb,Video,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsInStock")] Product product, Microsoft.AspNetCore.Http.IFormFile fThumb)
         {
             if (id != product.ProductId)
             {
+                _notyfService.Warning("Có lỗi xảy ra");
                 return NotFound();
             }
 
@@ -135,8 +156,21 @@ namespace DotnetTraining.Areas.Admin.Controllers
             {
                 try
                 {
+                    product.ProductName = Utilities.ToTitleCase(product.ProductName);
+                    if (fThumb != null)
+                    {
+                        //string extension = Path.GetExtension(product.FileName);
+                        //string image = Utilities.SEOUrl(product.ProductName) + extension;
+                        //product.Thumb = await Utilities.UploadFile(fThumb, @"products", image.ToLower());
+                    }
+                    if (string.IsNullOrEmpty(product.Thumb)) product.Thumb = "default.jpg";
+
+                    product.DateModified = DateTime.Now;
+
+
                     _context.Update(product);
                     await _context.SaveChangesAsync();
+                    _notyfService.Success("Cập nhật thành công");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -182,6 +216,7 @@ namespace DotnetTraining.Areas.Admin.Controllers
             var product = await _context.Products.FindAsync(id);
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
+            _notyfService.Success("Xóa sản phẩm thành công");
             return RedirectToAction(nameof(Index));
         }
 

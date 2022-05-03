@@ -23,6 +23,8 @@ namespace DotnetTraining.Models
         public bool BestSellers { get; set; }
         public bool Active { get; set; }
         public int? UnitsInStock { get; set; }
+        public string Thumb { get; set; }
+        public string Alias { get; set; }
 
         public virtual Category Cat { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

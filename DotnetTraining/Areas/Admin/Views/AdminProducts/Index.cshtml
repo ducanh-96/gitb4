@@ -17,7 +17,13 @@
 <div class="card">
     <div class="card-body">
         <div class="row m-b-30">
-            <div class="col-lg-8">
+            <div class="col-lg-3">
+                <div class="input-affix m-r-15">
+                    <i class="prefix-icon anticon anticon-search opacity-04"></i>
+                    <input id="keywork" name="keyword" type="text" class="form-control" placeholder="Tìm kiếm sản phẩm">
+                </div>
+            </div>
+            <div class="col-lg-5">
                 <div class="d-md-flex">
                     <div class="m-b-10 m-r-15">
                         <select class="custom-select" id="txtCatID" name="txtCatID" style="min-width: 250px;" asp-items="ViewBag.DanhMuc" >
@@ -29,7 +35,7 @@
             <div class="col-lg-4 text-right">
                 <a class="btn btn-primary" asp-controller="AdminProducts" asp-action="Create"> 
                     <i class="anticon anticon-plus-circle m-r-5"></i>
-                    <span>Add Product</span>
+                    <span>Thêm sản phẩm</span>
                 </a>
             </div>
         </div>
@@ -46,7 +52,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="records_table">
                     @if(Model != null)
                     {
                         foreach (var item in Model)
@@ -85,7 +91,8 @@
             </table>
             <div aria-label="Page navigation example">
                 <ul class="pagination">
-                    <paper class="paper-container" list="@Model" asp-area="Admin" asp-route-CatID="@ViewBag.CurrentCateID" asp-controller="AdminProducts" asp-action="Index">
+                    <pager class="paper-container" list="@Model" asp-area="Admin" asp-controller="AdminProducts" asp-action="Index"></pager>
+            
                 </ul>
             </div>
         </div>
@@ -98,8 +105,7 @@
             jQuery("#txtCatID").change (function () {
                 var catID = jQuery(this).children(":selected").attr("value");
                 catID = parseFloat(catID);
-                $('#txtCatID option')
-                    .removeAttr('selected');
+                $('#txtCatID option').removeAttr('selected');
                 $("#txtCatID> [value=" + catID + "]").attr("selected", "true");
                 $.ajax({
                     url: '/Admin/AdminProducts/Filtter',
@@ -115,6 +121,27 @@
                         }
                     },
                     error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#keyword").keyup(function () {
+                var strkeyword = $('#keyword').val();
+                $.ajax({
+                    url: '/Admin/Search/FindProduct/',
+                    datatype: "json",
+                    type: "POST",
+                    data: { keyword: strkeyword },
+                    async: true,
+                    success: function (results) {
+                        $("#records_table").html("");
+                        $("#records_table").html(results);
+                    },
+                    error: function (xhr){
                         alert('error');
                     }
                 });

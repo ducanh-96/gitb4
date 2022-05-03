@@ -4,6 +4,7 @@
     ViewData["Title"] = "Danh sách tài khoản";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+
 <div class="page-header">
     <div class="header-sub-title">
         <nav class="breadcrumb breadcrumb-dash">
@@ -35,9 +36,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Họ và tên</th>
-                        <th>Email</th>
-                        <th>Điện thoại</th>
+                        <th>Họ và tên - Email - Điện thoại</th>
                         <th>Lần đăng nhập cuối</th>
                         <th>Quyền truy cập</th>                        
                         <th>Trạng thái</th>
@@ -52,13 +51,10 @@
                             <tr>
                                 <td>@item.AccountId</td>
                                 <td>
-                                    <div class="d-flex align-items-center">
-                                        <img class="img-fluid rounded" src="~/Adminassets/images/others/thumb-9.jpg" style="max-width: 60px" alt="">
-                                        <h6 class="m-b-0 m-l-10">@item.FullName</h6>
-                                    </div>
+                                    <b>@item.FullName</b>
+                                    <p>@item.Email</p>
+                                    <p>@item.Phone</p>
                                 </td>
-                                <td>@item.Email</td>
-                                <td>@item.Phone</td>
                                 <td>@item.LastLogin</td>
                                 <td>@item.Role.Description</td>
                                 <td>

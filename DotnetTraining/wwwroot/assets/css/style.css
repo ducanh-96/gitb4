@@ -17920,6 +17920,7 @@ blockquote .inner-content .user-name:before {
 .product-img {
   position: relative;
   overflow: hidden;
+  height:250px;
 }
 
 .product-add-action {

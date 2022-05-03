@@ -128,7 +128,6 @@ namespace DotnetTraining.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                _notyfService.Warning("Có lỗi xảy ra");
                 return NotFound();
             }
 
@@ -136,7 +135,6 @@ namespace DotnetTraining.Areas.Admin.Controllers
                 .FirstOrDefaultAsync(m => m.RoleId == id);
             if (role == null)
             {
-                _notyfService.Warning("Có lỗi xảy ra");
                 return NotFound();
             }
 

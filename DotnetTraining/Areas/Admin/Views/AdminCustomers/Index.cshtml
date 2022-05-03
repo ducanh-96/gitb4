@@ -73,11 +73,12 @@
                     }
                 </tbody>
             </table>
-            <div aria-label="Page navigation example">
-                <ul class="pagination">
-                    <paper class="paper-container" list="@Model" asp-area="Admin"asp-controller="AdminCustomers" asp-action="Index">
-                </ul>
-            </div>
+           
+        </div>
+        <div aria-label="Page navigation example">
+            <ul class="pagination">
+                <pager class="paper-container" list="@Model" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Index"></pager>
+            </ul>
         </div>
     </div>
 </div>

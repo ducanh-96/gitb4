@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace DiChoSaiGon.Helpper
+namespace DotnetTraining.Helpper
 {
     public static class Utilities
     {
@@ -14,7 +14,7 @@ namespace DiChoSaiGon.Helpper
         {
             try
             {
-                if(!string.IsNullOrEmpty(input))
+                if (!string.IsNullOrEmpty(input))
                 {
                     return Regex.Replace(input, "<.*?>", String.Empty);
                 }
@@ -42,7 +42,7 @@ namespace DiChoSaiGon.Helpper
             }
         }
 
-        public static int PAGE_SIZE = 20;
+        public static int PAGE_SIZE = 5;
         public static void CreateIfMissing(string path)
         {
             bool folderExists = Directory.Exists(path);
@@ -159,7 +159,7 @@ namespace DiChoSaiGon.Helpper
                     return newname;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
