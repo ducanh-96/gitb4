@@ -57,6 +57,10 @@ namespace DotnetTraining.Models
 
                 entity.Property(e => e.RoleId).HasColumnName("RoleID");
 
+                entity.Property(e => e.Salt)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Accounts)
                     .HasForeignKey(d => d.RoleId)
@@ -97,6 +101,10 @@ namespace DotnetTraining.Models
                 entity.Property(e => e.Phone)
                     .HasMaxLength(12)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Salt)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -109,7 +117,11 @@ namespace DotnetTraining.Models
 
                 entity.Property(e => e.PaymentDate).HasColumnType("datetime");
 
+                entity.Property(e => e.PaymentId).HasColumnName("PaymentID");
+
                 entity.Property(e => e.ShipDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Status).HasMaxLength(20);
 
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Orders)

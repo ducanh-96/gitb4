@@ -1,5 +1,6 @@
 using AspNetCoreHero.ToastNotification;
 using DotnetTraining.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -32,8 +33,14 @@ namespace DotnetTraining
             var stringConnectdb = Configuration.GetConnectionString("dbRookies");
             services.AddDbContext<dbEcommerceRookiesContext>(options => options.UseSqlServer(stringConnectdb));
             services.AddMvc();
-            services.AddDistributedMemoryCache();
             services.AddSession();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(p =>
+                    {
+                        p.LoginPath = "/dang-nhap.html";
+                        p.AccessDeniedPath = "/";
+                    });
+            services.AddDistributedMemoryCache();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.All }));
             services.AddMemoryCache();
@@ -55,11 +62,13 @@ namespace DotnetTraining
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
             }
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             
             app.UseEndpoints(endpoints =>

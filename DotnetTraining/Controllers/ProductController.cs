@@ -66,6 +66,15 @@ namespace DotnetTraining.Controllers
                 {
                     return RedirectToAction("Index");
                 }
+
+                var lsProduct = _context.Products.AsNoTracking()
+                    .Where(x => x.CatId == product.CatId && x.ProductId != id && x.Active == true)
+                    .Take(4)
+                    .ToList();
+
+                ViewBag.SanPham = lsProduct;
+
+
                 return View(product);
             }
             catch
